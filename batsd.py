@@ -62,7 +62,7 @@ class DataSet (object):
     def next(self):
         self._index += 1
         if self._index < self.size:
-            return (self.series[self._index], self._index)
+            return self.series[self._index]
         else:
             raise StopIteration
 
