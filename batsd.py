@@ -188,6 +188,15 @@ class Connection (object):
         """Get a list of all available timers."""
         return map(lambda x: Timer(x[7:], self), filter(lambda x: 'timers:' == x[:7], self.available()))
 
+    def counter(self, name):
+        return Counter(name, self)
+
+    def gauge(self, name):
+        return Gauge(name, self)
+
+    def timer(self, name):
+        return Timer(name, self)
+
     def values(self, name, start, end):
         """
         Get values from a datapoint, in a given time span.
