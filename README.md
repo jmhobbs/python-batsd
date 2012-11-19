@@ -11,21 +11,52 @@ $ git clone https://github.com/jmhobbs/python-batsd.git && cd python-batsd && py
 # Usage
 
 ```python
-from batsd import Connection
-from time import time
-
-
-c = Connection() # defaults to host=127.0.0.1, port=8127
-
-if c.ping():
-    print 'The server is alive!'
-    print c.available() # list of datapoints
-    print c.values('counters:Test.counter', int(time()) - 60, int(time())) # hash of counter values
+>>> from time import time
+>>> from batsd import Connection
+>>> c = Connection()
+>>> c.ping()
+True
+>>> c.counters()
+[<batsd.Counter "Test">, <batsd.Counter "Sample.tick">]
+>>> sample = c.counter('Sample')
+>>> dataset = sample.get(int(time())-60, int(time()), 'tick')
+>>> print dataset.size
+24
+>>> print dataset.interval
+1
+>>> for point in dataset:
+...     print point[1]
+... 
+17.0
+17.0
+20.0
+30.0
+20.0
+20.0
+20.0
+20.0
+4.0
+10.0
+9.0
+15.0
+5.0
+31.0
+13.0
+3.0
+18.0
+4.0
+5.0
+13.0
+23.0
+17.0
+1.0
+2.0
+>>> 
 ```
 
 # Alpha
 
-This is super-alpha right now.  I want to make the API a bit cleaner, introduce some object that ease lookup and reference, and just generally move a step farther up from this fairly "raw" level.
+I'm still playing with the API, especially where top level names meet subnames and access patterns around that.
 
 Expect the API to be in flux a bit.
 

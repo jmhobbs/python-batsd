@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='python-batsd',
-      version='0.0.1',
+      version='0.0.2',
       description='Get data from the batsd TCP server.',
       author='John Hobbs',
       author_email='john@vevletcache.org',
